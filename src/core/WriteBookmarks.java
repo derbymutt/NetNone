@@ -26,13 +26,21 @@ import userInterface.UI;
  */
 public class WriteBookmarks {
     
-    public static void Initialize()
+    public static boolean Initialize()
     {
-        Definitions.userPath = System.getProperty("user.home");
-        
-        Definitions.userDocuments = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
-        
-        Console.writeln("User's home path is "+Definitions.userPath);
+        try{
+            Definitions.userPath = System.getProperty("user.home");
+
+            Definitions.userDocuments = new JFileChooser().getFileSystemView().getDefaultDirectory().toString();
+
+            Console.writeln("User's home path is "+Definitions.userPath);
+            return true;
+        }
+        catch(Exception ex)
+        {
+            Console.writeln(">>>MAJOR EXCEPTION\n\tFailed to aquire system info, bookmarks, file downloading, and settings may not be usable!");
+            return false;
+        }
     }
     
     public static void WriteBookmarks()

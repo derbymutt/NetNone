@@ -104,7 +104,29 @@ public class UI extends JFrame {
     {
         try
         {
-            WriteBookmarks.Initialize();
+            boolean temp = WriteBookmarks.Initialize();
+            if(!temp)
+            {
+                JavaWebBrowser.console.showInstance();
+                try{
+                    int temp2 = JOptionPane.showConfirmDialog(null, "Use dialup mode?", "Dialup", JOptionPane.YES_NO_OPTION);
+
+                    if(temp2 == JOptionPane.YES_OPTION)
+                        Constants.DIALUP = true;
+                    else
+                        Constants.DIALUP = false;
+
+                    int temp3 = JOptionPane.showConfirmDialog(null, "Use slow mode?", "Slow", JOptionPane.YES_NO_OPTION);
+
+                    if(temp3 == JOptionPane.YES_OPTION)
+                        Constants.SLOWMODE = true;
+                    else
+                        Constants.SLOWMODE = false;
+                }catch(Exception ex)
+                {
+                    Console.writeln(">>>EXCEPTION\n\tFailed to setup user interface.\n\tProceeding anyways.");
+                }
+            }
             WriteBookmarks.ReadConfig();
             
             navButtons = new BufferedImage[6];
